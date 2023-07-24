@@ -8,16 +8,16 @@
  */
 int get_size(const char *format, int *i)
 {
-	int curr_i = *i + 1;
+	int m = *i + 1;
 	int size = 0;
 
-	if (format[curr_i] == 'l')
+	if (format[m] == 'l')
 		size = S_LONG;
-	else if (format[curr_i] == 'h')
+	else if (format[m] == 'h')
 		size = S_SHORT;
 	if (size == 0)
-		*i = curr_i - 1;
+		*i = m - 1;
 	else
-		*i = curr_i;
+		*i = m;
 	return (size);
 }
