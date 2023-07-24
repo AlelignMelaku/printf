@@ -9,26 +9,26 @@
  */
 int get_width(const char *format, int *i, va_list list)
 {
-	int curr_i;
+	int k;
 	int width = 0;
 
-	for (curr_i = *i + 1; format[curr_i] != '\0';
-			curr_i++)
+	for (k = *i + 1; format[k] != '\0';
+			k++)
 	{
-		if (is_digit(format[curr_i]))
+		if (is_digit(format[k]))
 		{
 			width *= 10;
-			width += format[curr_i] - '0';
+			width += format[k] - '0';
 		}
-		else if (format[curr_i] == '*')
+		else if (format[k] == '*')
 		{
-			curr_i++;
+			k++;
 			width = va_arg(list, int);
 			break;
 		}
 		else
 			break;
 	}
-	*i = curr_i - 1;
+	*i = k - 1;
 	return (width);
 }
