@@ -57,7 +57,7 @@ int print_pointer(va_list types, char buffer[],
 int print_non_printable(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
 {
-	int i = 0, offset = 0;
+	int k = 0, offset = 0;
 	char *str = va_arg(types, char *);
 
 	UNUSED(flags);
@@ -66,16 +66,16 @@ int print_non_printable(va_list types, char buffer[],
 	UNUSED(size);
 	if (str == NULL)
 		return (write(1, "(null)", 6));
-	while (str[i] != '\0')
+	while (str[k] != '\0')
 	{
-		if (is_printable(str[i]))
-			buffer[i + offset] = str[i];
+		if (is_printable(str[k]))
+			buffer[k + offset] = str[k];
 		else
-			offset += append_hexa_code(str[i], buffer, i + offset);
-		i++;
+			offset += append_hexa_code(str[k], buffer, k + offset);
+		k++;
 	}
-	buffer[i + offset] = '\0';
-	return (write(1, buffer, i + offset));
+	buffer[k + offset] = '\0';
+	return (write(1, buffer, k + offset));
 }
 /********REVERSE *************************/
 /**
@@ -92,7 +92,7 @@ int print_reverse(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
 {
 	char *str;
-	int i, count = 0;
+	int m, count = 0;
 
 	UNUSED(buffer);
 	UNUSED(flags);
@@ -104,11 +104,11 @@ int print_reverse(va_list types, char buffer[],
 		UNUSED(precision);
 		str = ")Null(";
 	}
-	for (i = 0; str[i]; i++)
+	for (m = 0; str[m]; m++)
 		;
-	for (i = i - 1; i >= 0; i--)
+	for (m = m - 1; m >= 0; m--)
 	{
-		char z = str[i];
+		char z = str[m];
 
 		write(1, &z, 1);
 		count++;
@@ -129,7 +129,7 @@ int print_reverse(va_list types, char buffer[],
 int print_rot13string(va_list types, char buffer[],
 		int flags, int width, int precision, int size)
 {
-	char x;
+	char s;
 	char *str;
 	unsigned int i, j;
 	int count = 0;
@@ -150,16 +150,16 @@ int print_rot13string(va_list types, char buffer[],
 		{
 			if (in[j] == str[i])
 			{
-				x = out[j];
-				write(1, &x, 1);
+				s = out[j];
+				write(1, &s, 1);
 				count++;
 				break;
 			}
 		}
 		if (!in[j])
 		{
-			x = str[i];
-			write(1, &x, 1);
+			s = str[i];
+			write(1, &s, 1);
 			count++;
 		}
 	}
